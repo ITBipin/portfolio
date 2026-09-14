@@ -16,14 +16,16 @@ function SectionHeading({ eyebrow, title, description }: { eyebrow: string; titl
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showIntro, setShowIntro] = useState(true);
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#071014] text-slate-100">
+      {showIntro && <div className="intro-screen"><div className="intro-mark">BB</div><p className="intro-kicker">/ bipin bihari</p><h2>Engineering systems<br /><span>with intention.</span></h2><p className="intro-copy">Lead Full Stack .NET Developer</p><button type="button" onClick={() => setShowIntro(false)} className="button-primary">Enter portfolio <ArrowUpRight size={16} /></button></div>}
       <header className="sticky top-0 z-50 border-b border-white/10 bg-[#071014]/90 backdrop-blur-xl">
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 lg:px-8">
           <a href="#home" className="flex items-center gap-3 text-sm font-semibold tracking-[0.18em] text-white uppercase"><span className="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-300 font-bold text-[#071014]">BB</span>Bipin Bihari</a>
           <div className="hidden items-center gap-5 lg:flex">{navItems.map(([label, href]) => <a key={label} href={href} className="text-xs text-slate-400 transition hover:text-cyan-200">{label}</a>)}</div>
-          <div className="hidden items-center gap-3 sm:flex"><a href="https://github.com/ITBipin/" target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub" className="icon-button"><Globe2 size={16} /></a><a href="#contact" className="button-secondary">Let's talk <ArrowUpRight size={14} /></a></div>
-          <button type="button" aria-label="Toggle navigation" onClick={() => setMenuOpen((open) => !open)} className="icon-button lg:hidden">{menuOpen ? <X size={19} /> : <Menu size={19} />}</button>
+          <div className="hidden items-center gap-3 sm:flex"><a href="mailto:bipinit93@gmail.com?subject=Resume%20request" className="text-xs text-slate-400 transition hover:text-cyan-200">Resume</a><a href="https://github.com/ITBipin/" target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub" className="icon-button"><Globe2 size={16} /></a><a href="#contact" className="button-secondary">Let's talk <ArrowUpRight size={14} /></a></div>
+          <div className="flex items-center gap-2 lg:hidden"><a href="mailto:bipinit93@gmail.com?subject=Resume%20request" className="text-xs text-slate-400">Resume</a><button type="button" aria-label="Toggle navigation" onClick={() => setMenuOpen((open) => !open)} className="icon-button">{menuOpen ? <X size={19} /> : <Menu size={19} />}</button></div>
         </nav>
         {menuOpen && <div className="border-t border-white/10 px-5 py-4 lg:hidden"><div className="flex flex-col gap-4">{navItems.map(([label, href]) => <a key={label} href={href} onClick={() => setMenuOpen(false)} className="text-sm text-slate-300">{label}</a>)}<a href="https://github.com/ITBipin/" target="_blank" rel="noreferrer" className="text-sm text-cyan-200">GitHub profile</a></div></div>}
       </header>
