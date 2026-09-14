@@ -12,6 +12,5 @@ export const achievements = {
   ],
   education: {
     degree: 'Bachelor of Computer Applications (BCA), IGNOU',
-    period: '06/2010 – 05/2015',
   },
 };
