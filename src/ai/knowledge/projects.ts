@@ -1,0 +1,38 @@
+export const projectKnowledge = [
+  {
+    name: 'Musafir / JETT Visa Platform',
+    role: 'Lead Full-Stack .NET Developer',
+    scale: '2M+ leads and 30M+ platform operations',
+    technologies: ['.NET 8', 'ASP.NET Core', 'C#', 'Microservices', 'CQRS', 'Azure', 'MongoDB', 'RabbitMQ', 'Docker', 'GitHub Actions', 'SonarQube'],
+    summary: 'Distributed microservices platform for high-volume visa processing, asynchronous workflows, and secure large-scale operations.',
+    challenges: ['Distributed microservices', 'Legacy module decoupling', 'High-volume processing', 'Message-driven workflows', 'Code quality enforcement'],
+    achievements: ['Improved asynchronous processing throughput by 25%', 'Scalable platform for 2M+ leads and 30M+ operations', 'Built with CQRS and Azure-first deployment practices'],
+  },
+  {
+    name: 'Enterprise E-Commerce Platform',
+    role: 'Senior Full-Stack .NET Developer / Architecture Lead',
+    scale: 'Enterprise scale',
+    technologies: ['.NET 8', 'ASP.NET Core', 'SQL Server', 'C#', 'API performance tuning', 'Caching', 'Query optimization'],
+    summary: 'Refactoring initiative focused on throughput, query efficiency, and platform responsiveness.',
+    challenges: ['API throughput', 'Query optimization', 'Caching strategy', 'Indexing and database efficiency'],
+    achievements: ['40% API throughput improvement', '120ms response-time improvement', '35% database/index optimization improvement'],
+  },
+  {
+    name: 'Academic Management Platform',
+    role: 'Full-Stack .NET Developer / Module Lead',
+    scale: 'Legacy modernization',
+    technologies: ['Clean Architecture', 'Angular', 'Dapper', 'xUnit', 'ASP.NET Core'],
+    summary: 'Modernized academic management modules using clean and maintainable design patterns.',
+    challenges: ['Legacy modernization', 'Performance optimization', 'Module-level technical ownership'],
+    achievements: ['20% payload round-trip latency reduction', '35% execution efficiency improvement'],
+  },
+  {
+    name: 'Healthcare IT Systems',
+    role: 'Full-Stack .NET Developer',
+    scale: 'Enterprise backend modules',
+    technologies: ['OWASP Top 10', 'Azure DevOps', 'Docker', 'CI/CD', 'Secure backend systems'],
+    summary: 'Secure healthcare backend systems designed around reliability and quality gates.',
+    challenges: ['Secure backend design', 'Operating in healthcare workflows', 'Delivery consistency'],
+    achievements: ['70% deployment timeline reduction'],
+  },
+];

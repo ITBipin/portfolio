@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { lazy, Suspense } from 'react';
 import {
   ArrowRight,
   ArrowUpRight,
@@ -16,12 +17,15 @@ import {
   Workflow,
 } from 'lucide-react';
 
+const PortfolioAssistant = lazy(() => import('./ai/components/PortfolioAssistant'));
+
 const navItems = [
   { label: 'Home', href: '#home' },
   { label: 'Engineering', href: '#engineering' },
   { label: 'Experience', href: '#experience' },
   { label: 'Projects', href: '#projects' },
   { label: 'Architecture', href: '#architecture' },
+  { label: 'Bipin AI', href: '#ai' },
   { label: 'Recognition', href: '#recognition' },
   { label: 'Contact', href: '#contact' },
 ];
@@ -583,6 +587,26 @@ function App() {
           </div>
         </section>
 
+        <section id="ai" className="border-y border-sky-400/10 bg-sky-950/10 py-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-10 max-w-3xl">
+              <p className="text-xs font-medium tracking-[0.28em] text-sky-200 uppercase">Portfolio intelligence</p>
+              <h2 className="mt-3 text-3xl font-semibold text-white sm:text-4xl">Ask Bipin AI about the engineering behind the work.</h2>
+              <p className="mt-4 text-base leading-7 text-slate-300">Bipin AI uses a structured knowledge layer containing Bipin&apos;s professional profile, experience, projects, technical skills, and recognition. It provides portfolio-grounded demo responses today and is designed to connect to a secure server-side LLM API later.</p>
+            </div>
+            <div className="grid gap-8 lg:grid-cols-[1fr_0.9fr]">
+              <div className="rounded-[2rem] border border-slate-700 bg-slate-950/80 p-6 sm:p-8">
+                <div className="mb-6 flex items-center justify-between"><div><p className="text-xs uppercase tracking-[0.22em] text-slate-400">How this AI works</p><h3 className="mt-2 text-xl font-semibold text-white">Grounded by portfolio knowledge</h3></div><Sparkles className="text-sky-300" size={22} /></div>
+                <div className="space-y-3 text-center text-xs font-medium uppercase tracking-[0.18em] text-slate-200">
+                  {['Visitor question', 'React AI interface', 'Secure API boundary', 'Structured knowledge layer', 'Grounded response'].map((step, index) => <div key={step}><div className={`rounded-xl border px-4 py-3 ${index === 3 ? 'border-emerald-400/30 bg-emerald-500/10 text-emerald-200' : 'border-sky-400/20 bg-sky-500/5'}`}>{step}</div>{index < 4 && <div className="mx-auto h-4 w-px bg-slate-700" />}</div>)}
+                </div>
+                <p className="mt-6 text-sm leading-6 text-slate-400">The first version deliberately uses structured data instead of claiming vector search or RAG. A provider can be added behind the API boundary without exposing credentials to the browser.</p>
+              </div>
+              <div className="min-h-[540px] rounded-[2rem] border border-slate-700 bg-slate-950/60 p-2 sm:p-3"><Suspense fallback={<div className="flex h-full min-h-[520px] items-center justify-center text-sm text-slate-400">Loading Bipin AI...</div>}><PortfolioAssistant embedded /></Suspense></div>
+            </div>
+          </div>
+        </section>
+
         <section className="bg-slate-900/60 py-20">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <div className="rounded-[2rem] border border-slate-700 bg-slate-950/80 p-8 sm:p-10">
@@ -631,6 +655,10 @@ function App() {
           </div>
         </div>
       </footer>
+
+      <Suspense fallback={null}>
+        <PortfolioAssistant />
+      </Suspense>
     </div>
   );
 }
