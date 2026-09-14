@@ -2,6 +2,7 @@ import { lazy, Suspense, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Code2, Download, ExternalLink, Globe2, Layers3, Mail, Menu, Network, Sparkles, X, Zap } from 'lucide-react';
 import { achievements, aiDirection, aiEvaluation, aiProjects, experienceTimeline, projectKnowledge, skillCategories } from './ai/knowledge';
+import ThemeSwitcher from './theme/ThemeSwitcher';
 
 const PortfolioAssistant = lazy(() => import('./ai/components/PortfolioAssistant'));
 const CodeReviewDemo = lazy(() => import('./ai/components/CodeReviewDemo'));
@@ -24,8 +25,8 @@ function App() {
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 lg:px-8">
           <a href="#home" className="flex items-center gap-3 text-sm font-semibold tracking-[0.18em] text-white uppercase"><span className="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-300 font-bold text-[#071014]">BB</span>Bipin Bihari</a>
           <div className="hidden items-center gap-5 lg:flex">{navItems.map(([label, href]) => <a key={label} href={href} className="text-xs text-slate-400 transition hover:text-cyan-200">{label}</a>)}</div>
-          <div className="hidden items-center gap-3 sm:flex"><a href="mailto:bipinit93@gmail.com?subject=Resume%20request" className="text-xs text-slate-400 transition hover:text-cyan-200">Resume</a><a href="https://github.com/ITBipin/" target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub" className="icon-button"><Globe2 size={16} /></a><a href="#contact" className="button-secondary">Let's talk <ArrowUpRight size={14} /></a></div>
-          <div className="flex items-center gap-2 lg:hidden"><a href="mailto:bipinit93@gmail.com?subject=Resume%20request" className="text-xs text-slate-400">Resume</a><button type="button" aria-label="Toggle navigation" onClick={() => setMenuOpen((open) => !open)} className="icon-button">{menuOpen ? <X size={19} /> : <Menu size={19} />}</button></div>
+          <div className="hidden items-center gap-3 sm:flex"><ThemeSwitcher /><a href="mailto:bipinit93@gmail.com?subject=Resume%20request" className="text-xs text-slate-400 transition hover:text-cyan-200">Resume</a><a href="https://github.com/ITBipin/" target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub" className="icon-button"><Globe2 size={16} /></a><a href="#contact" className="button-secondary">Let's talk <ArrowUpRight size={14} /></a></div>
+          <div className="flex items-center gap-2 lg:hidden"><ThemeSwitcher /><a href="mailto:bipinit93@gmail.com?subject=Resume%20request" className="text-xs text-slate-400">Resume</a><button type="button" aria-label="Toggle navigation" onClick={() => setMenuOpen((open) => !open)} className="icon-button">{menuOpen ? <X size={19} /> : <Menu size={19} />}</button></div>
         </nav>
         {menuOpen && <div className="border-t border-white/10 px-5 py-4 lg:hidden"><div className="flex flex-col gap-4">{navItems.map(([label, href]) => <a key={label} href={href} onClick={() => setMenuOpen(false)} className="text-sm text-slate-300">{label}</a>)}<a href="https://github.com/ITBipin/" target="_blank" rel="noreferrer" className="text-sm text-cyan-200">GitHub profile</a></div></div>}
       </header>

@@ -23,6 +23,14 @@
     <link rel="canonical" href="https://itbipin.github.io/portfolio/" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="robots" content="index, follow" />
+    <script>
+      (function () {
+        var saved = localStorage.getItem('portfolio-theme') || 'dark';
+        var theme = saved === 'system' ? (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark') : saved;
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.dataset.themeChoice = saved;
+      }());
+    </script>
     <title>Bipin Bihari | Lead Full Stack .NET Developer</title>
     <script type="application/ld+json">
       {
