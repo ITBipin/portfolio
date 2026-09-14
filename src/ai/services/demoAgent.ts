@@ -1,4 +1,5 @@
 import { portfolioKnowledge } from '../knowledge';
+import { runPortfolioTool, selectPortfolioTool } from '../tools/portfolioTools';
 
 export type AgentMode = 'general' | 'recruiter' | 'interviewer';
 
@@ -7,6 +8,8 @@ export type AgentResponse = {
   sources: string[];
   suggestions: string[];
   mode: AgentMode;
+  tool?: string;
+  match?: { percentage: number; strongMatches: string[]; relevantExperience: string[]; relevantProjects: string[]; gaps: string[]; recommendedRole: string };
   source?: { label: string; sectionId: string };
   navigation?: { label: string; sectionId: string };
   diagram?: string[];
@@ -85,10 +88,29 @@ function findAnswer(text: string) {
 
 export async function getDemoAgentResponse(message: string, mode: AgentMode = 'general'): Promise<AgentResponse> {
   const question = message.toLowerCase();
+  const tool = selectPortfolioTool(message);
+  runPortfolioTool(tool, message);
   let answer = findAnswer(message);
   let source = { label: 'Portfolio Knowledge', sectionId: 'home' };
   let navigation: AgentResponse['navigation'];
   let diagram: string[] | undefined;
+
+  if (mode === 'recruiter' && /(looking for|requirement|need a|developer with|experience with)/i.test(message)) {
+    const requestedSkills = ['.NET 8', 'ASP.NET Core', 'Azure', 'Microservices', 'Angular', 'System Design', 'CQRS', 'React', 'Docker', 'CI/CD'];
+    const strongMatches = requestedSkills.filter((skill) => JSON.stringify(portfolioKnowledge.skills).toLowerCase().includes(skill.toLowerCase()));
+    const relevantProjects = portfolioKnowledge.projects.filter((project) => strongMatches.some((skill) => project.technologies.includes(skill))).map((project) => project.name);
+    const matchPercentage = Math.round((strongMatches.length / requestedSkills.length) * 100);
+    return {
+      answer: `Recruiter match: ${matchPercentage}%\n\nStrong matches:\n${strongMatches.map((skill) => `✓ ${skill}`).join('\n')}\n\nVerified experience spans lead-level .NET delivery, Azure, distributed microservices, system design, and full-stack work. Potential gaps: no verified information was found for requirements outside the portfolio knowledge base.`,
+      sources: ['Skills', 'Experience', 'Projects'],
+      suggestions: fallbackQuestions,
+      mode,
+      tool: 'search_portfolio',
+      source: { label: 'Recruiter evidence', sectionId: 'experience' },
+      navigation: { label: `Explore ${relevantProjects[0] ?? 'relevant projects'}`, sectionId: 'projects' },
+      match: { percentage: matchPercentage, strongMatches, relevantExperience: ['NeoSOFT lead engineering and Scrum facilitation', 'Vaibhav Global architecture leadership'], relevantProjects, gaps: ['No verified information outside Bipin\'s public portfolio'], recommendedRole: 'Lead Full Stack .NET Developer' },
+    };
+  }
 
   if (question.includes('architecture') || question.includes('cqrs') || question.includes('microservice')) {
     source = { label: 'Architecture Experience', sectionId: 'architecture' };
@@ -102,6 +124,9 @@ export async function getDemoAgentResponse(message: string, mode: AgentMode = 'g
   } else if (question.includes('resume') || question.includes('award') || question.includes('certification') || question.includes('achievement')) {
     source = { label: 'Recognition & Resume', sectionId: 'recognition' };
     navigation = { label: 'View recognition', sectionId: 'recognition' };
+  } else if (question.includes('contact') || question.includes('email') || question.includes('github')) {
+    source = { label: 'Contact Information', sectionId: 'contact' };
+    navigation = { label: 'Contact Bipin', sectionId: 'contact' };
   }
 
   if (question.includes('cqrs') || question.includes('architecture')) {
@@ -117,6 +142,7 @@ export async function getDemoAgentResponse(message: string, mode: AgentMode = 'g
     sources: [source.label],
     suggestions: fallbackQuestions,
     mode,
+    tool,
     source,
     navigation,
     diagram,

@@ -11,7 +11,7 @@ export const achievements = {
     { title: 'Star of the Month Award', issuer: 'GlobalLogic', year: '2023' },
   ],
   education: {
-    degree: 'Bachelor of Technology (B.Tech) in Computer Science',
+    degree: 'Bachelor of Computer Applications (BCA), IGNOU',
     period: '06/2010 – 05/2015',
   },
 };

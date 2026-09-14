@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { lazy, Suspense } from 'react';
+import { aiDirection, aiEvaluation, aiProjects } from './ai/knowledge';
 import {
   ArrowRight,
   ArrowUpRight,
@@ -18,6 +19,7 @@ import {
 } from 'lucide-react';
 
 const PortfolioAssistant = lazy(() => import('./ai/components/PortfolioAssistant'));
+const CodeReviewDemo = lazy(() => import('./ai/components/CodeReviewDemo'));
 
 const navItems = [
   { label: 'Home', href: '#home' },
@@ -26,6 +28,9 @@ const navItems = [
   { label: 'Projects', href: '#projects' },
   { label: 'Architecture', href: '#architecture' },
   { label: 'Bipin AI', href: '#ai' },
+  { label: 'AI Engineering', href: '#ai-engineering' },
+  { label: 'AI Projects', href: '#ai-projects' },
+  { label: 'Code Review', href: '#code-review' },
   { label: 'Recognition', href: '#recognition' },
   { label: 'Contact', href: '#contact' },
 ];
@@ -273,6 +278,12 @@ function App() {
               <div className="mt-8 flex flex-wrap gap-4">
                 <a href="#projects" className="inline-flex items-center gap-2 rounded-full bg-sky-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-sky-300">
                   View My Work <ArrowRight size={16} />
+                </a>
+                <a href="#ai" className="inline-flex items-center gap-2 rounded-full border border-emerald-400/40 bg-emerald-500/10 px-5 py-3 text-sm font-semibold text-emerald-200 transition hover:border-emerald-300 hover:bg-emerald-500/20">
+                  <Sparkles size={16} /> Ask My AI
+                </a>
+                <a href="#contact" className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/80 px-5 py-3 text-sm font-semibold text-slate-100 transition hover:border-slate-500 hover:bg-slate-800">
+                  Contact Me <ArrowRight size={16} />
                 </a>
                 <a href="/resume.pdf" download className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/80 px-5 py-3 text-sm font-semibold text-slate-100 transition hover:border-slate-500 hover:bg-slate-800">
                   <Download size={16} /> Download Resume
@@ -607,13 +618,38 @@ function App() {
           </div>
         </section>
 
+        <section id="ai-engineering" className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+          <div className="mb-10 max-w-3xl">
+            <p className="text-xs font-medium tracking-[0.28em] text-sky-200 uppercase">AI Engineering direction</p>
+            <h2 className="mt-3 text-3xl font-semibold text-white sm:text-4xl">Strong systems foundation, applied to modern AI workflows.</h2>
+            <p className="mt-4 text-base leading-7 text-slate-300">{aiDirection.positioning} This portfolio separates verified engineering experience from concepts currently being explored, keeping the story credible and precise.</p>
+          </div>
+          <div className="grid gap-6 lg:grid-cols-2">
+            <div className="rounded-3xl border border-slate-700 bg-slate-950/80 p-6"><p className="text-xs uppercase tracking-[0.2em] text-emerald-300">Experience with development tools</p><div className="mt-4 flex flex-wrap gap-2">{aiDirection.experience.map((item) => <span key={item} className="rounded-full border border-emerald-400/25 bg-emerald-500/10 px-3 py-1.5 text-sm text-emerald-100">{item}</span>)}</div></div>
+            <div className="rounded-3xl border border-slate-700 bg-slate-950/80 p-6"><p className="text-xs uppercase tracking-[0.2em] text-sky-300">Currently exploring</p><div className="mt-4 flex flex-wrap gap-2">{aiDirection.exploring.map((item) => <span key={item} className="rounded-full border border-slate-700 bg-slate-900 px-3 py-1.5 text-sm text-slate-200">{item}</span>)}</div></div>
+          </div>
+        </section>
+
+        <section id="ai-projects" className="bg-slate-900/60 py-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-10 flex flex-wrap items-end justify-between gap-4"><div><p className="text-xs font-medium tracking-[0.28em] text-sky-200 uppercase">AI project showcase</p><h2 className="mt-3 text-3xl font-semibold text-white">Small, explainable AI systems built around engineering fundamentals.</h2></div><span className="rounded-full border border-amber-400/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-200">Evaluation metrics: pending</span></div>
+            <div className="grid gap-6 xl:grid-cols-3">{aiProjects.map((project) => <article key={project.name} className="rounded-3xl border border-slate-700 bg-slate-950/80 p-6"><p className="text-xs font-medium uppercase tracking-[0.2em] text-sky-200">AI case study</p><h3 className="mt-2 text-xl font-semibold text-white">{project.name}</h3><p className="mt-4 text-sm leading-6 text-slate-300"><strong className="text-slate-100">Problem:</strong> {project.problem}</p><p className="mt-3 text-sm leading-6 text-slate-300"><strong className="text-slate-100">Solution:</strong> {project.solution}</p><div className="mt-5 space-y-2 text-center text-[10px] uppercase tracking-[0.14em] text-slate-200">{project.architecture.map((step, index) => <div key={step}><div className="rounded-lg border border-sky-400/20 bg-sky-500/5 px-2 py-2">{step}</div>{index < project.architecture.length - 1 && <div className="mx-auto h-2 w-px bg-slate-700" />}</div>)}</div><div className="mt-5 flex flex-wrap gap-2">{project.concepts.map((concept) => <span key={concept} className="rounded-full border border-slate-700 px-2.5 py-1 text-[11px] text-slate-300">{concept}</span>)}</div><p className="mt-5 text-xs leading-5 text-slate-400"><strong className="text-slate-300">What I learned:</strong> {project.learned}</p></article>)}</div>
+            <div className="mt-8 grid gap-3 sm:grid-cols-4">{aiEvaluation.map((metric) => <div key={metric.label} className="rounded-2xl border border-slate-700 bg-slate-950/70 p-4"><p className="text-xs text-slate-400">{metric.label}</p><p className="mt-2 text-sm font-medium text-amber-200">{metric.value}</p></div>)}</div>
+          </div>
+        </section>
+
+        <section id="code-review" className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+          <div className="mb-10 max-w-3xl"><p className="text-xs font-medium tracking-[0.28em] text-sky-200 uppercase">AI code review demonstration</p><h2 className="mt-3 text-3xl font-semibold text-white">A bounded review workflow for small C# snippets.</h2><p className="mt-4 text-base leading-7 text-slate-300">Explore how software engineering judgment can shape AI feedback around clean code, async behavior, security, performance, and architecture. This demo is not a replacement for SonarQube, a compiler, or a production security scanner.</p></div>
+          <Suspense fallback={<div className="rounded-3xl border border-slate-700 p-8 text-sm text-slate-400">Loading code review demo...</div>}><CodeReviewDemo /></Suspense>
+        </section>
+
         <section className="bg-slate-900/60 py-20">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <div className="rounded-[2rem] border border-slate-700 bg-slate-950/80 p-8 sm:p-10">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <p className="text-xs font-medium tracking-[0.28em] text-sky-200 uppercase">Education</p>
-                  <h2 className="mt-3 text-3xl font-semibold text-white">Bachelor of Technology (B.Tech) in Computer Science</h2>
+                  <h2 className="mt-3 text-3xl font-semibold text-white">Bachelor of Computer Applications (BCA), IGNOU</h2>
                 </div>
                 <div className="rounded-full border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-slate-300">06/2010 – 05/2015</div>
               </div>
